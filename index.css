@@ -1,0 +1,476 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+:root {
+  --color-bg1: rgb(8, 10, 15);
+  --color-bg2: rgb(0, 17, 32);
+  --color1: 18, 113, 255;
+  --color2: 107, 74, 255;
+  --color3: 100, 100, 255;
+  --color4: 50, 160, 220;
+  --color5: 80, 47, 122;
+  --color-interactive: 140, 100, 255;
+  --circle-size: 80%;
+  --blending: hard-light;
+}
+
+* {
+    margin:0;
+    padding:0;
+    outline:none;
+    list-style:none;
+    text-decoration:none;
+    box-sizing:border-box;
+    color:#FFF;
+    background: transparent;
+    border:none;
+  }
+  
+  html, body {
+    font-family: 'Dongle', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  
+  body {
+    background: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+  }
+ 
+  h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+  :root {
+    --font-size: clamp(1rem, 2vw + 1rem, 5rem);
+    --speed: 0.25s;
+    --accent: hsl(320 80% 50%);
+  }
+  
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif, system-ui;
+  }
+  
+  body::before {
+      --line: color-mix(in lch, canvasText 25%, transparent);
+      --size: 60px;
+      content: "";
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      background:
+          linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 0 -5vmin / var(--size) var(--size),
+          linear-gradient(var(--line) 1px, transparent 1px var(--size)) 0 -5vmin / var(--size) var(--size);
+      mask: linear-gradient(-15deg, transparent 60%,#7f7f7f);
+      top: 0;
+      z-index: -1;
+  }
+  
+  ::selection {
+    background: var(--accent);
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  .pass {
+      display: flex;
+      font-size: var(--font-size);
+      flex-direction: column;
+      gap: 0.25rem;
+      font-family: monospace;
+      max-width: calc(100% - 2rem);
+  }
+  
+  .pass label {
+      font-size: 0.5em;
+      font-weight: 200;
+      color: color-mix(in lch, canvasText 60%, transparent);
+  }
+  
+  .pass__header {
+      position: relative;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+  }
+  
+  [aria-hidden=true] {
+      display: block;
+      padding: 0.5em 0;
+  }
+  
+  button {
+      padding: 0;
+      display: grid;
+      place-items: center;
+      height: 100%;
+      aspect-ratio: 1;
+      border-radius: 6px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      outline: 0;
+      height: 44px;
+      width: 44px;
+      position: relative;
+      color: color-mix(in lch, canvasText 60%, transparent);;
+  }
+  
+  button:is(:focus-visible, :hover) {
+      --active: 1;
+  }
+  
+  button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: color-mix(in lch, canvas 50%, hsl(0 0% 100% / 1));
+      opacity: calc(0.25 * var(--active, 0));
+      border-radius: 6px;
+      transition: opacity 0.2s;
+  }
+  
+  button svg {
+      width: 65%;
+  }
+  
+  .clipboard {
+      --bg: canvas;
+      --control: canvas;
+      overflow: visible !important;
+  }
+  
+  .clipboard > path {
+      transform-box: fill-box;
+      transform-origin: 50% 50%;
+  }
+  
+  .clipboard__check {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      transition: stroke-dashoffset 0.2s;
+  }
+  
+  [data-copied=true] .clipboard__check {
+      transition: stroke-dashoffset 0.2s 0.2s;
+  }
+  
+  .clipboard__board {
+      rotate: 5deg;
+      translate: calc(20% + (var(--active, 0) * -5%)) -8%;
+      fill: var(--bg);
+  }
+  
+  .clipboard__paper {
+      fill: var(--bg);
+      translate: calc(-50% + (var(--active, 0) * 25%)) calc(25% - (var(--active, 0) * 10%));
+      rotate: -5deg;
+  }
+  
+  :is(.clipboard__paper, .clipboard__board) {
+      transition: translate 0.2s, rotate 0.2s;
+  }
+  
+  button:is(:hover, :focus-visible) :is(.clipboard__paper, .clipboard__board) {
+      fill: var(--control);
+  }
+  
+  [data-copied=true] :is(.clipboard__paper, .clipboard__board) {
+      translate: 0 0;
+      rotate: 0deg;
+  }
+  
+  [data-copied=true] .clipboard__check {
+      stroke-dashoffset: 0;
+  }
+  
+  .whitespace {
+      position: relative;
+      padding: 0 4px;
+  }
+  
+  .whitespace::after {
+      content: "";
+      height: 4px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--accent);
+      position: absolute;
+  }
+  
+  .char, .whitespace {
+      --speed: 5s;
+    --blurriness: calc(var(--font-size) * 0.25);
+    filter: blur(calc(var(--blur, 1) * var(--blurriness)));
+    transition: filter var(--speed);
+  }
+  .char {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .char::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+  }
+  
+  :is(.char, .whitespace):hover {
+    --blur: 0;
+    --speed: 0.2s;
+  }
+  .bear-link {
+      color: canvasText;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      width: 48px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      opacity: 0.8;
+  }
+  
+  :where(.x-link, .bear-link):is(:hover, :focus-visible) {
+      opacity: 1;
+  }
+  .bear-link svg {
+      width: 75%;
+  }
+  .position {
+    font-size: 4.4em;
+  }
+
+  .image-container {
+    margin: 0;
+    z-index: 1;
+    width: 23.334em;
+    height: 24.67em;
+    position: relative;
+    border: 0.115rem solid #c4c4c4;
+  }
+  .image-container img {
+    width: inherit;
+    display: block;
+    height: inherit;
+    margin-top: -2.435em;
+    background-color: #fff;
+    margin-left: -2.2em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: opacity 1s ease-out;
+  }
+  .about-me {
+    width: 100%;
+    background-color: #fbfbfb;
+  }
+   .about-me h2, .projects h2 {
+    font-size: 2.2em;
+    text-align: center;
+   }
+   .skill {
+        padding: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        font-size: 14px;
+        background: rgba(153, 153, 153, 0.2);
+        border-radius: 5px;
+        font-weight: 600;
+        color: #666;
+   }
+   .skills-wrapper {
+    font-size: 1.5em;
+   }
+   .img-container {
+    width: 500px;
+    height: 300px;
+   }
+   .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+   }
+   .intro {
+    width: 35%;
+   }
+   .vl {
+    display: block;
+    border-left: 1px solid #d4d4d475;
+    height: 100%;
+    position: absolute;
+    left: 55%;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto;
+  box-shadow: 0 3px 7px -1px rgba(#000, .1);
+  margin-bottom: 1.6%;
+  background: #fff;
+  line-height: 1.4;
+  font-family: sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+}
+.blog-card a {
+  color: inherit;
+}
+.blog-card a:hover {
+  color: #5ad67d;
+}
+.blog-card:hover .photo {
+  transform: scale(1.3) rotate(3deg);
+}
+.blog-card .meta {
+  position: relative;
+  z-index: 0;
+  height: 200px;
+}
+.blog-card .photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .2s;
+}
+.blog-card .details, .blog-card .details ul {
+  margin: auto;
+  padding: 0;
+  list-style: none;
+}
+.blog-card .details {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  margin: auto;
+  transition: left .2s;
+  background: rgba(#000, .6);
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  font-size: .9rem;
+}
+.details a {
+  text-decoration: dotted underline;
+}
+.details ul li {
+  display: inline-block;
+}
+.details .author::before {
+  margin-right: 10px;
+  content: "\f007";
+}
+.details .date::before {
+  margin-right: 10px;
+  content: "\f133";
+}
+.details .tags ul::before {
+  font-family: FontAwesome;
+  content: "\f02b";
+  margin-right: 10px;
+}
+.details .tags li {
+  margin-right: 2px;
+}        
+.details .tags li:first-child {
+  margin-left: -4px;
+}
+.card {
+  max-width: 800px;
+  background: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  margin: 1rem auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card .card-img-container {
+  height: auto;
+  flex-basis: 40%;
+}
+.card .card-img-container img {
+  height: 100%;
+  object-fit: cover;
+}
+.card .description {
+  flex-basis: 60%;
+  margin: 15px;
+}
+.card .description h1 {
+  line-height: 1;
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #000;
+
+}
+.card .description h1.project-1 {
+  color: #F26822;
+
+}
+.card .description p {
+  margin-top: 5px;
+  color: #000;
+}
+
+.links {
+  display: flex;
+}
+.language {
+  display: flex;
+  flex-basis: 70%;
+}
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.right {
+  flex-basis: 30%;
+  display: flex;
+  justify-content: end;
+}
+
+.logo-circle img {
+ height: 20px;
+}
+.block {
+  display: block;
+}
+.img-avatar {
+  transition: opacity 1s ease-out;
+}
+.img-avatar:hover {
+  opacity: 1;
+}
